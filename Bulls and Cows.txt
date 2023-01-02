@@ -1,0 +1,36 @@
+/*Shaswat Pandey*/
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        vector<int> pos;
+        for(int i=0;i<(int)secret.size();i++){
+            if(secret[i]==guess[i]){
+                pos.push_back(i);
+            }
+        }
+        int j=0;
+        multiset<char> st;
+        for(int i=0;i<(int)secret.size();i++){
+            if(j>=(int)pos.size() || i!=pos[j]){
+                st.insert(guess[i]);
+            }else j++;
+        }
+        j=0;
+        int cows=0;
+        for(int i=0;i<(int)secret.size();i++){
+            if(j>=(int)pos.size() || i!=pos[j]){
+                if(st.find(secret[i])!=st.end()){
+                    cows++;
+                    st.erase(st.find(secret[i]));
+                }
+            }else j++;
+        }
+        string ans="";
+        int bulls = pos.size();
+        ans+=(to_string(bulls));
+        ans+='A';
+        ans+=(to_string(cows));
+        ans+='B';
+        return ans;
+    }
+};
