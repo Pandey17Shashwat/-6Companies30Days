@@ -1,0 +1,24 @@
+/*Shashwat Pandey*/
+class Solution {
+public:
+    void func(int ind,vector<vector<int>>& ans,vector<int>& v,int k,int n){
+        if(ind==10){
+            if(n==0 && v.size()==k){
+                ans.push_back(v);
+            }
+            return;
+        }
+        if(ind<=n && v.size()<k){
+            v.push_back(ind);
+            func(ind+1,ans,v,k,n-ind);
+            v.pop_back();
+        }
+        func(ind+1,ans,v,k,n);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> ans;
+        vector<int> v;
+        func(1,ans,v,k,n);
+        return ans;
+    }
+};
